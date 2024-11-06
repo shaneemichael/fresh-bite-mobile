@@ -29,16 +29,16 @@ Berikut perbedaan utama dari stateless widget dan stateful widget:
 
 #### Widget yang digunakan pada proyek ini serta fungsinya. ####
 
-1) Scaffold: Memberikan struktur dasar layout aplikasi, seperti AppBar, Body, dan Bottom Navigation.
-2) AppBar: Menampilkan section di bagian atas layar dengan judul, ikon, dan tindakan penting.
-3) Column dan Row: Menyusun widget secara vertikal (Column) atau horizontal (Row) untuk layout yang rapi.
-4) Padding: Menambahkan ruang di sekitar widget sebagai jarak.
-5) InfoCard: Custom widget untuk menampilkan informasi dalam format kartu dengan judul dan konten.
-6) ItemCard: Menampilkan item individual dengan icon dan text, memudahkan navigasi.
-7) InkWell: Memberikan efek ripple saat pengguna berinteraksi dengan item, meningkatkan feedback visual.
-8) SnackBar: Menampilkan pesan singkat di bagian bawah layar sebagai respons tindakan.
-9) MaterialApp: Membungkus aplikasi dan mengatur konfigurasi global seperti tema dan rute.
-10) ThemeData: Mengatur skema warna dan gaya tema aplikasi untuk konsistensi visual.
+1) `Scaffold`: Memberikan struktur dasar layout aplikasi, seperti AppBar, Body, dan Bottom Navigation.
+2) `AppBar`: Menampilkan section di bagian atas layar dengan judul, ikon, dan tindakan penting.
+3) `Column dan Row`: Menyusun widget secara vertikal (Column) atau horizontal (Row) untuk layout yang rapi.
+4) `Padding`: Menambahkan ruang di sekitar widget sebagai jarak.
+5) `InfoCard`: Custom widget untuk menampilkan informasi dalam format kartu dengan judul dan konten.
+6) `ItemCard`: Menampilkan item individual dengan icon dan text, memudahkan navigasi.
+7) `InkWell`: Memberikan efek ripple saat pengguna berinteraksi dengan item, meningkatkan feedback visual.
+8) `SnackBar`: Menampilkan pesan singkat di bagian bawah layar sebagai respons tindakan.
+9) `MaterialApp`: Membungkus aplikasi dan mengatur konfigurasi global seperti tema dan rute.
+10) `ThemeData`: Mengatur skema warna dan gaya tema aplikasi untuk konsistensi visual.
 
 #### Fungsi dari `setState()` serta variabel yang dapat terdampak dengan fungsi tersebut. ####
 

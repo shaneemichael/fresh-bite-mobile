@@ -48,7 +48,7 @@ Variabel yang dapat terdampak oleh `setState()` adalah variabel yang didefinisik
 
 #### Jelaskan perbedaan antara `const` dengan `final`. ####
 
-* `const`: Menandakan bahwa nilai suatu variabel bersifat konstan dan harus ditentukan saat kompilasi. Nilai `const` tidak dapat diubah dan berlaku secara tetap di seluruh siklus hidup program. const umumnya digunakan untuk objek atau nilai yang tidak akan pernah berubah dan sudah diketahui sebelum runtime, seperti `const` pi = 3.14.
+* `const`: Menandakan bahwa nilai suatu variabel bersifat konstan dan harus ditentukan saat kompilasi. Nilai `const` tidak dapat diubah dan berlaku secara tetap di seluruh siklus hidup program. const umumnya digunakan untuk objek atau nilai yang tidak akan pernah berubah dan sudah diketahui sebelum runtime, seperti `const pi = 3.14`.
 
 * `final`: Menandakan bahwa nilai variabel bersifat final, yaitu hanya dapat diinisialisasi sekali. Namun, nilai `final` bisa ditentukan pada saat runtime, bukan hanya saat kompilasi. Misalnya, `final currentTime = DateTime.now();` valid karena nilainya baru dihasilkan ketika program berjalan.
 

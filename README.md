@@ -169,11 +169,11 @@ theme: ThemeData(
 `primarySwatch` akan menentukan warna utama / tema (theme) aplikasi yang digunakan di berbagai komponen penting, seperti `AppBar`, `FloatingActionButton`, dan lainnya. Sedangkan, secondary colornya akan digunakan untuk elemen-elemen kecil tambahan seperti `button`, `icon`, dan lain-lain. Dengan menggunakan fitur tersebut, pengguna dapat memastikan bahwa setiap perubahan yang dilakukan akan mengikuti theme yang sudah ditentukan.
 
 #### Cara menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter. ####
-Untuk menangani navigasi di aplikasi Flutter dengan banyak halaman, teknik nested navigation digunakan, dengan bantuan Navigator dan MaterialPageRoute untuk memudahkan perpindahan halaman.
+Untuk menangani navigasi di aplikasi Flutter dengan banyak halaman, kita dapat menggunakan teknik "nested navigation" dengan bantuan `Navigator` dan `MaterialPageRoute` untuk memudahkan perpindahan halaman.
 
 Navigator bekerja dengan sistem tumpukan (stack) di mana:
+* `push()` menambahkan route baru ke atas stack sehingga halaman baru ditampilkan,
+* `pop()` menghapus route di posisi teratas untuk kembali ke halaman sebelumnya, dan
+* `pushReplacement()` mengganti route teratas dengan route baru tanpa mengubah posisi stack di bawahnya.
 
-push() menambahkan route baru ke atas stack sehingga halaman baru ditampilkan,
-pop() menghapus route di posisi teratas untuk kembali ke halaman sebelumnya, dan
-pushReplacement() mengganti route teratas dengan route baru tanpa mengubah posisi stack di bawahnya.
-Dengan MaterialPageRoute, kita dapat menentukan halaman tujuan dan menambah transisi antar halaman, memungkinkan navigasi sederhana seperti membuka halaman baru dengan Navigator.push() atau kembali ke halaman sebelumnya dengan Navigator.pop().
+Dengan MaterialPageRoute, kita dapat menentukan halaman tujuan dan menambah transisi antar halaman dan memungkinkan navigasi sederhana seperti membuka halaman baru dengan `Navigator.push()` atau kembali ke halaman sebelumnya dengan `Navigator.pop()`.

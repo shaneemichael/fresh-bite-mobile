@@ -86,3 +86,94 @@ Variabel yang dapat terdampak oleh `setState()` adalah variabel yang didefinisik
     },
     ....
     ```
+
+# Tugas Individu 8 #
+
+#### Kegunaan dan keuntungan `const` pada Flutter serta waktu ketika sebaiknya digunakan dan tidak digunakan. ####
+Pada Flutter, `const` digunakan untuk mendefinisikan content atau widget yang bersifat immutable (tidak dapat berubah) dan diinisialisasi saat compile time.  Artinya, nilai yang dideklarasikan dengan const tidak akan berubah selama aplikasi berjalan. Hal ini akan berpengaruh pada optimisasi memori, performa, dan keamanan terhadap perubahan.
+
+Kapan menggunakan `const` pada Flutter:
+* Untuk widget yang statis: Apabila kita memiliki widget yang isinya tidak akan berubah selama siklus hidup aplikasi, gunakan const. Contohnya adalah `Text`, `Icon`, atau `Container` yang memiliki warna atau ukuran tetap.
+* Saat menggunakan nilai konstan: Jika nilai dalam widget bersifat tetap, misalnya teks atau ukuran, maka mendeklarasikannya dengan `const` lebih baik untuk kinerja dan memori.
+* Reusable components: Kita sebaiknya menggunakan const untuk widget atau nilai konstan yang sering digunakan kembali di banyak tempat dalam aplikasi. Misalnya, warna tema aplikasi atau standard padding.
+
+Kapan tidak menggunakan `const` pada Flutter:
+* Untuk Widget Dinamis: Kita sebaiknya menghindari penggunaan `const` jika nilai widget bisa berubah berdasarkan keadaan atau interaksi pengguna, misal hasil dari API atau input pengguna. 
+* Apabila menggunakan object variable yang nilainya bisa berubah-ubah.
+
+#### Penggunaan `Column` dan `Row` pada Flutter, serta contoh implementasinya. ####
+Di Flutter, `Column` dan `Row` adalah widget layout yang digunakan untuk mengatur posisi dan susunan widget child di layar. Column mengatur widget secara vertikal (dari atas ke bawah), sedangkan Row mengatur widget secara horizontal (dari kiri ke kanan).
+
+Properti utama `column`:
+* `mainAxisAlignment`: Mengatur posisi child pada main axis (sumbu utama) Column, yaitu vertikal.
+* `crossAxisAlignment`: Mengatur posisi child pada cross axis (sumbu silang), yaitu horizontal.
+* `children`: Daftar widget child yang ingin disusun secara vertikal.
+
+Implementasinya:
+```
+Column(
+  mainAxisAlignment: MainAxisAlignment.center, // Align secara vertikal, disusun di tengah, widget tersusun dari atas ke bawah
+  crossAxisAlignment: CrossAxisAlignment.start, // Align secara horizontal, disusun mulai dari kiri
+  children: [
+    Text('Hello, Flutter!'),
+    SizedBox(height: 10), // Jarak antar widget
+    Icon(Icons.star, color: Colors.amber),
+    ElevatedButton(onPressed: () {}, child: Text('Click Me'))
+  ],
+)
+```
+
+Properti utama `row`:
+* `mainAxisAlignment`: Mengatur posisi child pada main axis Row, yaitu horizontal.
+* `crossAxisAlignment`: Mengatur posisi child pada cross axis, yaitu vertikal.
+* `children`: Daftar widget child yang ingin disusun secara horizontal.
+
+Implementasi:
+```
+Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround, // Sebar widget secara merata, widget tersusun dari kiri ke kanan
+  crossAxisAlignment: CrossAxisAlignment.center, // Align widget di tengah secara vertikal
+  children: [
+    Icon(Icons.home, color: Colors.blue),
+    Icon(Icons.search, color: Colors.green),
+    Icon(Icons.settings, color: Colors.grey),
+  ],
+)
+```
+
+#### Elemen input yang digunakan pada halaman form yang dibuat pada tugas kali ini. ####
+Elemen input yang digunakan:
+1) `TextFormField`yang digunakan pada `Nama Produk`, `Harga`, serta `Deskripsi` dengan validasi harus terdapat input (input tidak boleh kosong). Khusus untuk `Harga`, terdapat tambahan validasi bahwa inputnya harus berupa angka.
+
+Elemen input lainnya yang tidak digunakan:
+1) TextField: Memungkinkan pengguna mengetik teks bebas, biasanya untuk mengisi formulir atau kolom pencarian.
+2) Checkbox: Untuk memilih beberapa opsi secara bersamaan dari daftar pilihan yang ada.
+3) Radio: Untuk memilih satu opsi dari sekumpulan pilihan yang saling eksklusif.
+4) Switch: Memungkinkan pengguna mengaktifkan atau menonaktifkan opsi tertentu.
+5) Slider: Elemen input berbentuk penggeser untuk memilih nilai dalam rentang tertentu, seperti volume atau brightness.
+6) DropdownButton: Menu pilihan tarik-turun yang memungkinkan pengguna memilih satu opsi dari daftar yang tersedia.
+7) DatePicker: Widget untuk memilih tanggal dari kalender.
+8) TimePicker: Widget untuk memilih waktu, baik dalam format jam maupun menit.
+
+#### Cara mengatur tema (theme) dalam aplikasi Flutter agar aplikasi yang dibuat konsisten. ####
+Untuk kasus kali ini, saya memilih untuk menggunakan warna yang berbeda-beda dalam theme saya. Karena itu, saya tidak menggunakan primary dan secondary color dari `swatch`. Saya memutuskan untuk meng-assign warna nya satu per satu sehingga saya mempunyai kontrol yang bebas terhadap warna yang ingin saya gunakan.
+
+Namun, sebenarnya Flutter mempunyai fitur tersendiri apabila kita ingin menggunakan warna yang sama untuk banyak bagian, yaitu menggunakan `swatch` yang diajarkan pada tutorial. Contohnya adalah sebagai berikut:
+```
+theme: ThemeData(
+    colorScheme: ColorScheme.fromSwatch(
+          primarySwatch: Colors.deepPurple,
+    ).copyWith(secondary: Colors.deepPurple[400]),
+  ),
+```
+`primarySwatch` akan menentukan warna utama / tema (theme) aplikasi yang digunakan di berbagai komponen penting, seperti `AppBar`, `FloatingActionButton`, dan lainnya. Sedangkan, secondary colornya akan digunakan untuk elemen-elemen kecil tambahan seperti `button`, `icon`, dan lain-lain. Dengan menggunakan fitur tersebut, pengguna dapat memastikan bahwa setiap perubahan yang dilakukan akan mengikuti theme yang sudah ditentukan.
+
+#### Cara menangani navigasi dalam aplikasi dengan banyak halaman pada Flutter. ####
+Untuk menangani navigasi di aplikasi Flutter dengan banyak halaman, teknik nested navigation digunakan, dengan bantuan Navigator dan MaterialPageRoute untuk memudahkan perpindahan halaman.
+
+Navigator bekerja dengan sistem tumpukan (stack) di mana:
+
+push() menambahkan route baru ke atas stack sehingga halaman baru ditampilkan,
+pop() menghapus route di posisi teratas untuk kembali ke halaman sebelumnya, dan
+pushReplacement() mengganti route teratas dengan route baru tanpa mengubah posisi stack di bawahnya.
+Dengan MaterialPageRoute, kita dapat menentukan halaman tujuan dan menambah transisi antar halaman, memungkinkan navigasi sederhana seperti membuka halaman baru dengan Navigator.push() atau kembali ke halaman sebelumnya dengan Navigator.pop().

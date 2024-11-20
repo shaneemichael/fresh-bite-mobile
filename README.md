@@ -177,3 +177,89 @@ Navigator bekerja dengan sistem tumpukan (stack) di mana:
 * `pushReplacement()` mengganti route teratas dengan route baru tanpa mengubah posisi stack di bawahnya.
 
 Dengan MaterialPageRoute, kita dapat menentukan halaman tujuan dan menambah transisi antar halaman dan memungkinkan navigasi sederhana seperti membuka halaman baru dengan `Navigator.push()` atau kembali ke halaman sebelumnya dengan `Navigator.pop()`.
+
+# Tugas Individu 9 #
+#### Perlunya membuat model untuk melakukan pengambilan ataupun pengiriman data JSON ####
+Pada Flutter, model digunakan sebagai representasi struktur data yang diterima atau dikirim dalam format JSON. Dengan membuat model, kita dapat mempermudah proses serialisasi (mengubah objek Dart menjadi JSON) dan deserialisasi (mengubah JSON menjadi objek Dart).
+
+Alasan Membuat Model:
+* Type Safety: Model memastikan tipe data yang digunakan sesuai dengan yang diharapkan, sehingga mengurangi kemungkinan error tipe data.
+* Kemudahan Manipulasi Data: Dengan model, kita dapat mengakses data menggunakan properti objek, bukan melalui map atau struktur data dinamis lainnya.
+* Pemeliharaan Kode: Kode menjadi lebih terstruktur dan mudah dibaca, sehingga memudahkan proses debugging dan pengembangan lebih lanjut.
+
+Jika kita tidak membuat model dan bekerja langsung dengan data JSON mentah atau `Map<String, dynamic>`, kemungkinan error meningkat karena:
+* Kesalahan Penulisan (Typo): Mengakses key map secara manual rentan terhadap typo yang sulit dideteksi saat compile time.
+* Kesalahan Tipe Data: Tanpa model, tidak ada jaminan bahwa data yang diterima sesuai dengan tipe yang diharapkan.
+* Kesulitan Debugging: Error mungkin baru muncul saat runtime, yang membuat proses debugging lebih sulit.
+
+#### Fungsi dari library http yang sudah diimplementasikan ####
+Library http berfungsi sebagai alat untuk melakukan komunikasi jaringan antara aplikasi Flutter dan backend Django melalui protokol HTTP. Dengan menggunakan library ini, aplikasi Flutter dapat mengirimkan permintaan HTTP seperti GET, POST, PUT, dan DELETE ke server Django, serta menerima respons dari server.
+
+Dalam konteks tugas ini, http digunakan untuk:
+
+1. Mengambil Data (GET Requests):
+
+   * Mengakses Endpoint JSON: Melakukan permintaan GET ke endpoint API yang disediakan oleh backend Django untuk mendapatkan data dalam format JSON. Misalnya, mendapatkan daftar produk, detail produk, atau informasi pengguna.
+   * Parsing Respons JSON: Setelah menerima respons, library http membantu dalam mengakses body respons yang kemudian dapat diuraikan (parsed) menjadi objek Dart menggunakan jsonDecode.
+   * Menampilkan Data di Aplikasi: Data yang telah diuraikan dapat diubah menjadi model dan ditampilkan dalam widget Flutter seperti ListView atau GridView.
+   
+2. Mengirim Data (POST/PUT Requests):
+   * Registrasi Akun: Mengirim data pengguna seperti username, email, dan password ke endpoint registrasi di backend Django menggunakan permintaan POST.
+   * Login Pengguna: Mengirim kredensial login melalui permintaan POST untuk proses autentikasi.
+   * Mengirim Data Lainnya: Mengirim data lain seperti input formulir atau pembaruan informasi melalui permintaan POST atau PUT.
+   * Mengatur Header dan Body: Library http memungkinkan pengaturan header (misalnya, Content-Type: application/json) dan body permintaan dalam format yang sesuai.
+
+3. Autentikasi:
+   * Mengelola Header dan Token: Untuk endpoint yang memerlukan autentikasi, library http digunakan untuk menyertakan header yang diperlukan seperti token autentikasi atau cookie sesi.
+   * Keamanan Komunikasi: Memastikan bahwa data sensitif seperti kredensial login dikirim dengan aman melalui protokol HTTPS.
+   * Mengelola Sesi Pengguna: Bersama dengan CookieRequest, library http membantu dalam menyimpan dan mengirim cookie sesi untuk mempertahankan status login pengguna.
+
+4. Operasi Asinkron:
+   * Responsivitas Aplikasi: Permintaan HTTP biasanya memerlukan waktu, sehingga library http mendukung operasi asinkron menggunakan Future. Ini memastikan UI tetap responsif dan tidak terblokir saat menunggu respons dari server.
+   * Penanganan Error: Memungkinkan penanganan error seperti koneksi gagal, timeout, atau respons yang tidak valid, sehingga aplikasi dapat memberikan umpan balik yang tepat kepada pengguna.
+
+5. Interaksi dengan Backend Django:
+   * Integrasi dengan API REST: Library http memungkinkan aplikasi Flutter untuk berinteraksi dengan API REST yang disediakan oleh Django, memanfaatkan endpoint yang telah dikonfigurasi di sisi server.
+   * Kustomisasi Permintaan: Dapat mengatur metode HTTP, header, dan body sesuai kebutuhan, memungkinkan fleksibilitas dalam berkomunikasi dengan server.
+
+#### Fungsi dari `CookieRequest` dan mengapa instance `CookieRequest` perlu dibagikan ke semua komponen di aplikasi Flutter ###
+
+CookieRequest adalah kelas yang digunakan untuk mengelola cookie dan sesi autentikasi antara aplikasi Flutter dan server. Fungsinya meliputi:
+* Menyimpan Cookie Sesi: Setelah proses login, server mengirim cookie yang menandakan sesi pengguna, dan CookieRequest menyimpannya.
+* Menyertakan Cookie pada Permintaan Selanjutnya: Setiap permintaan HTTP berikutnya akan menyertakan cookie tersebut sehingga server dapat mengenali sesi pengguna.
+* Mengelola Status Login: Memungkinkan aplikasi untuk memeriksa apakah pengguna sudah login atau belum dengan memeriksa keberadaan cookie sesi.
+
+Mengapa Instance CookieRequest Perlu Dibagikan ke Semua Komponen:
+* Konsistensi Sesi: Dengan berbagi instance yang sama, semua komponen aplikasi akan menggunakan cookie yang sama, memastikan konsistensi dalam interaksi dengan server.
+* Kemudahan Akses: Memudahkan komponen manapun untuk melakukan permintaan yang membutuhkan autentikasi tanpa perlu mengelola cookie secara individual.
+* Efisiensi: Menghindari pembuatan banyak instance CookieRequest, yang dapat membingungkan pengelolaan sesi dan meningkatkan penggunaan memori.
+
+#### Mekanisme pengiriman data mulai dari input hingga dapat ditampilkan pada Flutter. ####
+* Input Data oleh Pengguna: Pengguna memasukkan data melalui widget input di Flutter, seperti TextField atau FormField.
+* Pengumpulan dan Validasi Data: Aplikasi mengumpulkan data yang diinput dan melakukan validasi (misalnya, memastikan tidak ada field yang kosong).
+* Mengirim Data ke Server: Menggunakan library http atau CookieRequest, aplikasi mengirim data ke server Django melalui permintaan HTTP (misalnya, POST).
+* Pemrosesan Data di Server: Server menerima permintaan, memproses data (misalnya, menyimpan ke database), dan menyiapkan respons.
+* Mengirim Respons ke Aplikasi: Server mengirimkan respons kembali ke aplikasi Flutter, biasanya dalam format JSON.
+* Menerima dan Mengolah Respons: Aplikasi menerima respons, melakukan parsing JSON, dan mengonversinya menjadi objek model.
+* Menampilkan Data ke Pengguna: Data yang telah diproses ditampilkan kembali ke pengguna melalui widget Flutter, seperti ListView atau Text.
+
+#### Mekanisme autentikasi dari login, register, hingga logout. Mulai dari input data akun pada Flutter ke Django hingga selesainya proses autentikasi oleh Django dan tampilnya menu pada Flutter. ####
+Registrasi:
+* Input Data Registrasi: Pengguna mengisi form registrasi di Flutter dengan data seperti username, email, dan password.
+* Mengirim Data ke Server: Aplikasi mengirim permintaan POST ke endpoint registrasi di Django.
+* Pemrosesan di Server: Django memvalidasi data, membuat akun baru jika valid, dan mengirim respons sukses atau error.
+* Menampilkan Hasil di Aplikasi: Flutter menampilkan pesan sukses atau error berdasarkan respons yang diterima.
+
+Login:
+* Input Kredensial Login: Pengguna memasukkan username dan password di Flutter.
+* Mengirim Permintaan Login: Aplikasi mengirim permintaan POST ke endpoint login di Django menggunakan CookieRequest.
+* Validasi di Server: Django memeriksa kredensial. Jika valid, server membuat sesi dan mengirim cookie sesi.
+* Menyimpan Cookie Sesi: CookieRequest menyimpan cookie sesi untuk digunakan pada permintaan berikutnya.
+* Navigasi ke Menu Utama: Aplikasi menavigasi pengguna ke halaman utama yang membutuhkan autentikasi.
+
+Logout:
+* Permintaan Logout: Pengguna memilih opsi logout di aplikasi Flutter.
+* Mengirim Permintaan ke Server: Aplikasi mengirim permintaan ke endpoint logout di Django.
+* Penghapusan Sesi di Server: Django menghapus sesi dan cookie terkait.
+* Menghapus Cookie Sesi di Aplikasi: CookieRequest menghapus cookie sesi yang tersimpan.
+* Navigasi ke Halaman Login: Aplikasi mengarahkan pengguna kembali ke halaman login.

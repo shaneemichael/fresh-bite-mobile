@@ -10,7 +10,7 @@ class ProductEntryFormPage extends StatefulWidget {
 
 class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
   final _formKey = GlobalKey<FormState>();
-  String _product = "";
+  String _name = "";
 	int _price = 0;
 	String _description = "";
   @override
@@ -44,7 +44,7 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                   ),
                   onChanged: (String? value) {
                     setState(() {
-                      _product = value!;
+                      _name = value!;
                     });
                   },
                   validator: (String? value) {
@@ -124,7 +124,7 @@ class _ProductEntryFormPageState extends State<ProductEntryFormPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text('Product: $_product'),
+                                    Text('Product: $_name'),
                                     Text('Price: $_price'),
                                     Text('Description: $_description')
                                   ],

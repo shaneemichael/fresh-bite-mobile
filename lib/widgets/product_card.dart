@@ -41,16 +41,14 @@ class ItemCard extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const ProductEntryFormPage()),
             );
           }
-          else if (item.name == "Lihat Produk") {
-              Navigator.push(context,
-                  MaterialPageRoute(
-                      builder: (context) => const ProductEntryPage()
-                  ),
-              );
+          else if (item.name == "Lihat Daftar Produk") {
+            Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const ProductEntryPage()),
+                );
           }
           else if (item.name == "Logout") {
               final response = await request.logout(
-                  //Ganti URL dan jangan lupa tambahkan trailing slash (/) di akhir URL!
                   "http://127.0.0.1:8000/auth/logout/");
               String message = response["message"];
               if (context.mounted) {
